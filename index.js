@@ -1,4 +1,5 @@
 const departmentsURL = 'http://localhost:3000/departments/';
+const itemsURL = 'http://localhost:3000/items/';
 const cardContainer = document.querySelector('#card-container');
 
 fetch(departmentsURL)
@@ -14,22 +15,45 @@ const getItems = department => {
 
 			let depH2 = document.createElement('h2');
 			depH2.innerText = depWithItems.name;
-            
-            let itemsDiv = document.createElement('div')
+
+			let itemsDiv = document.createElement('div');
 			depWithItems.items.forEach(item => appendItem(item, itemsDiv));
-            
-            let newItemForm = document.createElement('form')
 
-            let itemInput = document.createElement('input')
-            itemInput.type = 'text'
-            itemInput.placeholder = 'Item name'
+			let newItemForm = document.createElement('form');
+			newItemForm.addEventListener('submit', event => {
+				event.preventDefault();
+				const newItemName = itemInput.value;
+				const newItem = {
+					name: newItemName,
+					departmentId: department.id,
+				};
+				const postItemOptions = {
+					method: 'POST',
+					headers: {
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
+					},
+                    body: JSON.stringify(newItem)
+				};
 
-            let addButton = document.createElement('input') //make this button work
-            addButton.className = 'form-button'
-            addButton.type = 'submit'
-            addButton.value = 'Add Item'
+                fetch(itemsURL, postItemOptions)
+                .then(res => res.json())
+                .then(item => appendItem(item, itemsDiv))
 
-            newItemForm.append(itemInput, addButton)
+                newItemForm.reset()
+			});
+
+			let itemInput = document.createElement('input');
+			itemInput.type = 'text';
+			itemInput.placeholder = 'Item name';
+
+			let addButton = document.createElement('input'); //make this button work
+			addButton.className = 'form-button';
+			addButton.type = 'submit';
+			addButton.value = 'Add Item';
+
+
+			newItemForm.append(itemInput, addButton);
 
 			depDiv.append(depH2, itemsDiv, newItemForm);
 			cardContainer.append(depDiv);
@@ -37,16 +61,25 @@ const getItems = department => {
 };
 
 const appendItem = (item, itemsDiv) => {
-    let itemDiv = document.createElement('div')
-    itemDiv.className = 'item'
+	let itemDiv = document.createElement('div');
+	itemDiv.className = 'item';
 
-    let deleteButton = document.createElement('button') //make this button work
-    deleteButton.className = 'delete-button'
-    deleteButton.innerText = 'X'
+	let deleteButton = document.createElement('button'); //make this button work
+	deleteButton.className = 'delete-button';
+	deleteButton.innerText = 'X';
+    deleteButton.addEventListener('click', () => deleteItem(item, itemDiv))
 
 	let itemName = document.createElement('p');
 	itemName.innerText = item.name;
 
-    itemDiv.append(deleteButton, itemName);
-    itemsDiv.append(itemDiv)
+	itemDiv.append(deleteButton, itemName);
+	itemsDiv.append(itemDiv);
 };
+
+function deleteItem(item, itemDiv){
+    const deleteItemOptions = {
+        method: 'DELETE'
+    }
+    fetch(itemsURL + item.id, deleteItemOptions)
+    itemDiv.remove()
+}
