@@ -1,0 +1,72 @@
+{
+    "departments": [
+        {
+            "id": 1,
+            "name": "Produce"
+        },
+        {
+            "id": 2,
+            "name": "Meat & Seafood"
+        },
+        {
+            "id": 3,
+            "name": "Dairy"
+        },
+        {
+            "id": 4,
+            "name": "Snacks"
+        }
+    ],
+    "items": [
+        {
+            "id": 1,
+            "name": "Onion",
+            "departmentId": 1
+        },
+        {
+            "id": 2,
+            "name": "Spinach",
+            "departmentId": 1
+        },
+        {
+            "id": 3,
+            "name": "Peppers",
+            "departmentId": 1
+        },
+        {
+            "id": 4,
+            "name": "Chicken",
+            "departmentId": 2
+        },
+        {
+            "id": 5,
+            "name": "Cod",
+            "departmentId": 2
+        },
+        {
+            "id": 6,
+            "name": "Milk",
+            "departmentId": 3
+        },
+        {
+            "id": 7,
+            "name": "Eggs",
+            "departmentId": 3
+        },
+        {
+            "id": 8,
+            "name": "Fruit Snacks",
+            "departmentId": 4
+        },
+        {
+            "id": 9,
+            "name": "Chips",
+            "departmentId": 4
+        },
+        {
+            "id": 10,
+            "name": "Cookies",
+            "departmentId": 4
+        }
+    ]
+}

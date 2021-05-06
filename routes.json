@@ -1,0 +1,3 @@
+{
+  "/departments/:id": "/departments/:id?_embed=items"
+}
