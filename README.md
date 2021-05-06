@@ -10,7 +10,6 @@ Your base URL for your API will be: http://localhost:3000
 
 The endpoints you will need are:
 
-- GET `/departments/1`
-- POST `/departments`
+- GET `/departments`
 - POST `/items`
 - DELETE `/items/:id`
